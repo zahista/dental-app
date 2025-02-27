@@ -15,6 +15,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
     ];
 
@@ -28,7 +29,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class);
     }
-    
 
     protected function casts(): array
     {

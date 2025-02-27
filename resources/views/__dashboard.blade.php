@@ -6,7 +6,7 @@
 
         <div>
             <h3 class="text-lg font-semibold">Willie Jennie</h3>
-            <div class="bg-zinc-50 border rounded px-4 py-2 flex items-center gap-16 text-gray-400 text-sm">
+            <div class="bg-zinc-50 border rounded-sm px-4 py-2 flex items-center gap-16 text-gray-400 text-sm">
                 <p>Have uneven jawline</p>
                 <button class="text-yellow-700 font-semibold">Edit</button>
             </div>
@@ -46,7 +46,7 @@
                 class="relative z-20 inline-flex items-center justify-center w-full h-6 px-3 text-sm font-medium transition-all rounded-md cursor-pointer whitespace-nowrap text-sm">Cosmetic</button>
 
             <div x-ref="tabMarker" class="absolute left-0 z-10 w-1/2 h-full duration-300 ease-out">
-                <div class="w-full h-full bg-white rounded-md shadow"></div>
+                <div class="w-full h-full bg-white rounded-md shadow-sm"></div>
             </div>
         </div>
     </div>

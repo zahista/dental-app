@@ -12,6 +12,10 @@
         <x-input  label="Heslo" type="password" name="password"/>
         <x-button>Registrovat</x-button>
         
+        <flux:text class="text-center">
+            Pokud již máte účet, přihlaste se.
+        </flux:text>
+
         <a href="/login">Pokud již máte účet, přihlaste se.</a>
     </form>
 </x-layouts.guest>

@@ -7,7 +7,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gradient-to-t from-zinc-300 to-zinc-50 flex items-center justify-center h-screen">
+<body class="bg-linear-to-t from-zinc-300 to-zinc-50 flex items-center justify-center h-screen">
 
     {{$slot}}
     

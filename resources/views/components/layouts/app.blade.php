@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-tooltip@1.x.x/dist/cdn.min.js" defer></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
+    @vite('resources/css/app.css')
     @fluxAppearance
 </head>
 
@@ -87,7 +86,7 @@
                                 <path d="m21 21-4.3-4.3" />
                             </svg>
                             <input placeholder="Search patient..." type="search"
-                                class="bg-zinc-100 focus:outline-none">
+                                class="bg-zinc-100 focus:outline-hidden">
                         </div>
 
 
