@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->date('start_at');
+            $table->date('start_at')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->foreignId('user_id');

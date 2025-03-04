@@ -1,50 +1,95 @@
 <x-layouts.app title="Přehled návštěv" :user="auth()->user()">
 
-    <div class="flex justify-end">
-        <flux:modal.trigger name="edit-profile">
+    <div class="flex justify-end p-8">
+
+        @if (auth()->user()->role == 'doctor')
+        <flux:modal.trigger name="create-appointment">
             <div class="p-4">
-                <flux:button variant="primary">Objednat návštěvu</flux:button>
+                <flux:button variant="primary">Vytvořit návštěvu</flux:button>
             </div>
         </flux:modal.trigger>
 
-        @if(auth()->user()->role == "admin")
-            <p>Jsem admin</p>
-        @endif
 
-
-        <flux:modal name="edit-profile" variant="flyout" class="space-y-6">
+        <flux:modal name="create-appointment" variant="flyout" class="space-y-6">
             <div>
-                <flux:heading size="lg">Objednejte se</flux:heading>
+                <flux:heading size="lg">Vytvořit</flux:heading>
                 <flux:subheading>Vyberte preferovaný termin a lekáře. Pokud návštěvu potvrdíme, zašleme vám email.
                 </flux:subheading>
             </div>
 
-            <flux:input label="Name" placeholder="Your name" />
+            <form action="/appointment" method="post" class="space-y-4">
+                @csrf
+                <flux:input label="Název návštěvy" placeholder="Your name" name="title" />
+                <flux:input label="Popisek" name="description" />
+                <flux:input label="Poznámka" name="notes" />
 
-            <flux:input label="Date of birth" type="date" />
+                <label for="cars">Vyber pacienta:</label>
 
-            <div class="flex">
-                <flux:spacer />
+                <select name="user_id" id="user">
+                    @forelse ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
 
-                <flux:button type="submit" variant="primary">Save changes</flux:button>
-            </div>
+                <div class="flex">
+                    <flux:spacer />
+                    <flux:button type="submit" variant="primary">Save changes</flux:button>
+                </div>
+            </form>
+
         </flux:modal>
+        @endif
     </div>
 
 
     <div class="p-8">
         @foreach ($appointments as $appointment)
-            <a href="">
-                <div class="bg-white p-4 border-b mb-2">
-                    <flux:heading>{{ $appointment->title }}</flux:heading>
-                    <flux:subheading>{{ $appointment->description }}</flux:subheading>
+            <a href="   {{ route('appointment.show', ['appointment' => $appointment->id]) }}">
+                <div class="bg-white p-4 border-b mb-2 flex justify-between">
+                    <div>
+                        <flux:heading>{{ $appointment->title }}</flux:heading>
+                        <flux:subheading>{{ $appointment->description }}</flux:subheading>
 
-                    <div class="flex items-center gap-4 mt-4">
-                        <flux:badge icon="calendar-days">{{ $appointment->start_at }}</flux:badge>
+                        <div class="flex items-center gap-4 mt-4">
+                            <flux:badge color="{{$appointment->start_at ? 'lime' : ''}}" icon="calendar-days">{{ $appointment->start_at ?? 'Nenaplánováno' }}
+                            </flux:badge>
+                        </div>
                     </div>
-                </div>
             </a>
-        @endforeach
+
+            <flux:spacer />
+
+            @empty($appointment->start_at)
+            <form action="/appointment_edit" method="post">
+                @csrf
+                <flux:modal.trigger :name="'edit-appointment-'.$appointment->id">
+                    <flux:tooltip content="Naplánovat návštěvu">
+                        <flux:button icon="calendar" icon-variant="outline" />
+                    </flux:tooltip>
+                </flux:modal.trigger>
+
+                <flux:modal :name="'edit-appointment-'.$appointment->id" class="md:w-96">
+                    <div class="space-y-6">
+                        <div>
+                            <flux:heading size="lg">Vyberte datum návštěvy</flux:heading>
+                            <flux:subheading>Naplánujte svou další návštěvu.</flux:subheading>
+                        </div>
+
+                        <flux:input label="Preferovaný datum návštěvy" type="date" name="start_at" />
+                        <input type="hidden" name="appointment_id" value="{{$appointment->id}}" />
+
+                        <div class="flex">
+                            <flux:spacer />
+
+                            <flux:button type="submit" variant="primary">Save changes</flux:button>
+                        </div>
+                    </div>
+                </flux:modal>
+            </form>
+            @endempty
+    </div>
+
+    @endforeach
     </div>
 
 </x-layouts.app>

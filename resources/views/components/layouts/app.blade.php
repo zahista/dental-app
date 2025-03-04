@@ -16,7 +16,7 @@
 
     <div class="flex h-screen">
 
-        <flux:sidebar sticky  class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar sticky stashable class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
         <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="px-2 dark:hidden" />
@@ -25,23 +25,21 @@
         <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
 
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="home" href="#" current>Home</flux:navlist.item>
+            <flux:navlist.item icon="home" href="#" current>Přehled</flux:navlist.item>
             <flux:navlist.item icon="inbox" badge="12" href="#">Inbox</flux:navlist.item>
-            <flux:navlist.item icon="document-text" href="#">Documents</flux:navlist.item>
-            <flux:navlist.item icon="calendar" href="#">Calendar</flux:navlist.item>
+            <flux:navlist.item icon="document-text" href="#">Dokumenty</flux:navlist.item>
 
-            <flux:navlist.group expandable heading="Favorites" class="hidden lg:grid">
-                <flux:navlist.item href="#">Marketing site</flux:navlist.item>
-                <flux:navlist.item href="#">Android app</flux:navlist.item>
-                <flux:navlist.item href="#">Brand guidelines</flux:navlist.item>
+            <flux:navlist.group expandable heading="Klinika" class="hidden lg:grid">
+                <flux:navlist.item href="#">Přehled pacientů</flux:navlist.item>
+                <flux:navlist.item href="#">Ceník</flux:navlist.item>
+                <flux:navlist.item href="#">Nastavení rolí</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
         <flux:spacer />
 
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="cog-6-tooth" href="#">Settings</flux:navlist.item>
-            <flux:navlist.item icon="information-circle" href="#">Help</flux:navlist.item>
+            <flux:navlist.item icon="cog-6-tooth" href="#">Nastavení</flux:navlist.item>
         </flux:navlist>
 
         <flux:dropdown position="top" align="start" class="max-lg:hidden">
