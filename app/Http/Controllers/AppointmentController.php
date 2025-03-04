@@ -12,17 +12,22 @@ class AppointmentController extends Controller
 
     // Index  = zobraz mi všechny Návštěvy
 
-    public function index()
+    public function index($user = NULL)
     {
-        $user = Auth::user();
+        $loggedUser = Auth::user();
+        $urlUser = User::find($user);
 
-        $appointments = $user->appointments;
-        $users = User::where('role', 'patient')->get();
+        $appointments = $loggedUser->appointments;
+
+        if($loggedUser == "doctor" && $urlUser !== NULL)
+        {
+            $appointments = $urlUser->appointments;
+        }
 
         return view('dashboard', [
             'appointments' => $appointments,
-            'users' => $users,
-        ]); 
+            'user' => $urlUser ?? $loggedUser,
+        ]);
     }
 
     // Zobraz mi konkrétní Návštěvu s konkrétním ID a všechny jeho informace 
@@ -33,17 +38,17 @@ class AppointmentController extends Controller
 
         return view('appointment', [
             'appointment' => $appointment,
-           
+
         ]);
     }
 
-     //vytvoř novou návštěvu
+    //vytvoř novou návštěvu
 
-     public function store(Request $request)
-     {
+    public function store(Request $request)
+    {
         Appointment::create($request->only(['title', 'description', 'notes', 'user_id']));
 
-        return to_route('appointment.index');
+        return back();
     }
 
 
@@ -53,7 +58,6 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($request->appointment_id)->update(['start_at' => $request->start_at]);
 
-        return to_route('appointment.index');
+        return back();
     }
-   
 }

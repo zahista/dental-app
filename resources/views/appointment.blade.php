@@ -1,4 +1,4 @@
-<x-layouts.app title="Detail návštěvy" :user="auth()->user()">
+<x-layouts.app title="Detail návštěvy">
 
     <div class="p-8">
         <flux:heading level="2">{{ $appointment->title }}</flux:heading>

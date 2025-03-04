@@ -1,6 +1,6 @@
-<x-layouts.app title="Přehled návštěv" :user="auth()->user()">
+<x-layouts.app title="Přehled návštěv">
 
-    <div class="flex justify-end p-8">
+    <div class="flex justify-end p-8" id="pokus">
 
         @if (auth()->user()->role == 'doctor')
         <flux:modal.trigger name="create-appointment">
@@ -23,13 +23,7 @@
                 <flux:input label="Popisek" name="description" />
                 <flux:input label="Poznámka" name="notes" />
 
-                <label for="cars">Vyber pacienta:</label>
-
-                <select name="user_id" id="user">
-                    @forelse ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
+                <input type="hidden" name="user_id" value="{{$user->id}}">
 
                 <div class="flex">
                     <flux:spacer />
@@ -43,7 +37,7 @@
 
 
     <div class="p-8">
-        @foreach ($appointments as $appointment)
+        @foreach ($user->appointments as $appointment)
             <a href="   {{ route('appointment.show', ['appointment' => $appointment->id]) }}">
                 <div class="bg-white p-4 border-b mb-2 flex justify-between">
                     <div>

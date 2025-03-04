@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fluxAppearance
 </head>
 
@@ -25,13 +25,13 @@
         <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
 
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="home" href="#" current>Přehled</flux:navlist.item>
+            <flux:navlist.item icon="home" href="/" current>Přehled</flux:navlist.item>
             <flux:navlist.item icon="inbox" badge="12" href="#">Inbox</flux:navlist.item>
             <flux:navlist.item icon="document-text" href="#">Dokumenty</flux:navlist.item>
 
             <flux:navlist.group expandable heading="Klinika" class="hidden lg:grid">
-                <flux:navlist.item href="#">Přehled pacientů</flux:navlist.item>
-                <flux:navlist.item href="#">Ceník</flux:navlist.item>
+                <flux:navlist.item href="{{route('patients.index')}}">Přehled pacientů</flux:navlist.item>
+                <flux:navlist.item href="{{route('treatment_type.index')}}">Ceník</flux:navlist.item>
                 <flux:navlist.item href="#">Nastavení rolí</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
@@ -145,8 +145,8 @@
                     <div class="flex items-center gap-4">
                         <img src="../avatar.avif" alt="" class="w-8 h-8 rounded-full">
                         <div>
-                            <p class="text-gray-700 text-sm">{{$user->name}}</p>
-                            <p class="text-gray-400 text-xs">{{$user->role}}</p>
+                            <p class="text-gray-700 text-sm">{{auth()->user()->name}}</p>
+                            <p class="text-gray-400 text-xs">{{auth()->user()->role}}</p>
                         </div>
 
                         <svg class="text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
