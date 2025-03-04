@@ -17,15 +17,12 @@ class AppointmentController extends Controller
         $loggedUser = Auth::user();
         $urlUser = User::find($user);
 
-        $appointments = $loggedUser->appointments;
-
-        if($loggedUser == "doctor" && $urlUser !== NULL)
+        if($loggedUser->role !== "doctor" && $urlUser !== NULL)
         {
-            $appointments = $urlUser->appointments;
+            abort(404);
         }
 
         return view('dashboard', [
-            'appointments' => $appointments,
             'user' => $urlUser ?? $loggedUser,
         ]);
     }
