@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TreatmentController;
@@ -31,7 +32,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/treatment_types', [TreatmentTypeController::class, 'index'])->name('treatment_type.index');
     Route::post('/treatment_types', [TreatmentTypeController::class, 'store'])->name('treatment_type.store');
 
+    
+    
+    Route::get('/roles', [UsersController::class, 'index'])->name('users.roles');
+    Route::post('/roles', [UsersController::class, 'edit'])->name('user.roles.edit');
+    
     Route::get("/{user?}", [AppointmentController::class, 'index'])->name('appointment.index');
-
 
 });

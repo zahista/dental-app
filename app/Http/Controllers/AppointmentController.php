@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Appointment;
+use App\Models\TreatmentType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,7 @@ class AppointmentController extends Controller
 
         if($loggedUser->role !== "doctor" && $urlUser !== NULL)
         {
-            abort(404);
+            return abort(404);
         }
 
         return view('dashboard', [
@@ -31,11 +32,21 @@ class AppointmentController extends Controller
 
     public function show(Appointment $appointment)
     {
+
+        if(Auth::user()->id !== $appointment->user_id)
+        {
+            to_route('appointment.index');
+        }
+
         $appointment = $appointment->load('treatments');
+        $treatment_types = TreatmentType::where('status', 'active')->get();
+        $doctors = User::where('role', 'doctor')->get();
+
 
         return view('appointment', [
             'appointment' => $appointment,
-
+            'treatment_types' => $treatment_types,
+            'doctors' => $doctors
         ]);
     }
 

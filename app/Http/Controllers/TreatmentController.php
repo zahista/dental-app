@@ -15,6 +15,10 @@ class TreatmentController extends Controller
             "tooth"=> $request->tooth,
             "appointment_id"=> $request->appointment_id,
             "user_id"=> $request->user_id,
+            "type_id"=> $request->type_id,
+            "doctor_id"=> $request->doctor_id,
         ]);
+
+        return back();
     }
 }

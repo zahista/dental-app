@@ -29,11 +29,13 @@
             <flux:navlist.item icon="inbox" badge="12" href="#">Inbox</flux:navlist.item>
             <flux:navlist.item icon="document-text" href="#">Dokumenty</flux:navlist.item>
 
+            @if(auth()->user()->role == "doctor")
             <flux:navlist.group expandable heading="Klinika" class="hidden lg:grid">
                 <flux:navlist.item href="{{route('patients.index')}}">Přehled pacientů</flux:navlist.item>
                 <flux:navlist.item href="{{route('treatment_type.index')}}">Ceník</flux:navlist.item>
-                <flux:navlist.item href="#">Nastavení rolí</flux:navlist.item>
+                <flux:navlist.item href="{{route('users.roles')}}">Nastavení rolí</flux:navlist.item>
             </flux:navlist.group>
+            @endif
         </flux:navlist>
 
         <flux:spacer />

@@ -34,7 +34,7 @@
                 <flux:input label="Název zákroku" placeholder="Your name" name="title" />
                 <flux:input label="Popisek" name="description" />
 
-                <select name="tooth" >
+                <select name="tooth">
                     <option value="11">11</option>
                     <option value="12">12</option>
                     <option value="13">13</option>
@@ -42,8 +42,22 @@
                     <option value="15">15</option>
                 </select>
 
-                <input type="hidden" name="appointment_id" value="{{$appointment->id}}">
-                <input type="hidden" name="user_id" value="{{$appointment->user->id}}">
+
+                <select name="type_id">
+                    @foreach ($treatment_types as $type)
+                        <option value="{{ $type->id }}">{{ $type->title }} | {{ $type->description }}</option>
+                    @endforeach
+                </select>
+
+                <select name="doctor_id">
+                    @foreach ($doctors as $doctor)
+                        <option value="{{ $doctor->id }}">{{ $doctor->name }}
+                        <option>
+                    @endforeach
+                </select>
+
+                <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                <input type="hidden" name="user_id" value="{{ $appointment->user->id }}">
 
                 <div class="flex">
                     <flux:button type="submit" variant="primary">Save changes</flux:button>
@@ -52,7 +66,7 @@
 
         </flux:modal>
 
-        
+
     </div>
 
 </x-layouts.app>

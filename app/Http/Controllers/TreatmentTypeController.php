@@ -16,7 +16,14 @@ class TreatmentTypeController extends Controller
 
     public function store(Request $request)
     {
-        TreatmentType::create($request->except('_token'));
+        TreatmentType::create([
+            "title" => $request->title,
+            "description" => $request->description,
+            "price" => $request->price,
+            "minutes" => $request->minutes,
+            "status" => $request->status,
+            "is_paid" => $request->is_paid == "on" ? 1 : 0,
+        ]);
 
         return to_route('treatment_type.index');
     }
